@@ -4,10 +4,15 @@ from loguru import logger
 
 from database import get_user_linked_channels, get_channel_by_ids
 from utils import update_channel_invite_link
-from handlers import start_command, help_command, add_command
 
 # Register callback handlers
-def register_callback_handlers(bot):
+def register_callback_handlers(bot, command_handlers):
+    # Store command handlers for use in callbacks
+    global start_command, help_command, add_command
+    start_command = command_handlers['start_command']
+    help_command = command_handlers['help_command']
+    add_command = command_handlers['add_command']
+    
     bot.add_handler(callback_query_handler)
 
 # Main callback query handler

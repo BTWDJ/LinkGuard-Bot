@@ -5,7 +5,7 @@ from pyrogram.enums import ChatMemberStatus
 from datetime import datetime
 from loguru import logger
 
-# Import callback handlers
+# Import callback handlers registration function only
 from callback_handlers import register_callback_handlers
 
 from database import (
@@ -24,6 +24,8 @@ from config import BOT_USERNAME
 # User states for conversation handling
 user_states = {}
 
+
+
 # Register all handlers
 def register_handlers(bot):
     # Set bot username for later use
@@ -36,8 +38,13 @@ def register_handlers(bot):
     # Handle conversation states
     bot.add_handler(filters.private & ~filters.command(["start", "help", "add", "remove", "status"]), handle_conversation)
     
-    # Register callback handlers
-    register_callback_handlers(bot)
+    # Register callback handlers with command references
+    command_handlers = {
+        'start_command': start_command,
+        'help_command': help_command,
+        'add_command': add_command
+    }
+    register_callback_handlers(bot, command_handlers)
     
     # Update bot username
     @bot.on_me()
