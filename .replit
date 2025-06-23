@@ -1,0 +1,27 @@
+run = "python bot.py"
+language = "python3"
+
+[nix]
+channel = "stable-22_11"
+
+[env]
+PYTHONPATH = "${REPL_HOME}"
+PYTHON_VERSION = "3.11"
+
+[packager]
+language = "python3"
+
+[packager.features]
+packageSearch = true
+guessImports = true
+
+[unitTest]
+language = "python3"
+
+[languages.python3]
+pattern = "**/*.py"
+syntax = "python"
+symbol = "🐍"
+
+[languages.python3.languageServer]
+start = ["pylsp"]
