@@ -82,8 +82,8 @@ async def add_linked_channels(user_id, main_channel_id, private_channel_id, mess
         from datetime import datetime, timedelta
         now = datetime.utcnow()
         
-        # Calculate next update time (12 hours from now)
-        next_update = now + timedelta(hours=12)
+        # Calculate next update time (6 hours from now)
+        next_update = now + timedelta(hours=6)
         
         # Prepare document
         document = {
@@ -158,7 +158,7 @@ async def update_invite_link(user_id, main_channel_id, invite_link):
     try:
         from datetime import datetime, timedelta
         now = datetime.utcnow()
-        next_update = now + timedelta(hours=12)
+        next_update = now + timedelta(hours=6)
         
         result = await db[COLLECTION_CHANNELS].update_one(
             {"user_id": user_id, "main_channel_id": main_channel_id},

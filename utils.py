@@ -64,7 +64,7 @@ async def update_main_message(bot, main_channel_id, message_id, invite_link):
     """Update the message in the main channel with the new invite link"""
     try:
         # Format the message with the new invite link
-        message_text = f"🔐 **Private Channel Access**\n\n🔗 **New Invite Link:**\n{invite_link}\n\n⏱ **Updated:** {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC\n\n🤖 Powered by @LinkGuardRobot"
+        message_text = f"🔗 **New Invite Link:**\n{invite_link}\n\n🤖 Powered by @LinkGuardRobot"
         
         # Edit the message
         await bot.edit_message_text(

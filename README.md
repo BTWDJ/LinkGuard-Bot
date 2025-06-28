@@ -4,7 +4,7 @@ A Telegram bot that automatically refreshes private channel invite links and upd
 
 ## Features
 
-- 🔄 **Automatic Link Refresh**: Updates private channel invite links every 12 hours
+- 🔄 **Automatic Link Refresh**: Updates private channel invite links every 6 hours
 - 🔐 **Security**: Revokes old links after creating new ones
 - 📢 **Public Usage**: Any channel admin can use this bot for their channels
 - 🛡️ **Permission Checks**: Ensures proper admin rights for both user and bot
@@ -105,7 +105,7 @@ The bot requires the following permissions:
 1. Add the bot as an admin to both your public and private channels with the required permissions
 2. Start a private chat with the bot and use the `/add` command
 3. Follow the instructions to link your channels
-4. The bot will automatically update the invite link every 12 hours
+4. The bot will automatically update the invite link every 6 hours
 
 ## License
 

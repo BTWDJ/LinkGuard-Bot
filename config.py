@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Link update configuration
-UPDATE_INTERVAL_HOURS = 12
+UPDATE_INTERVAL_HOURS = 6
 
 # MongoDB collections
 COLLECTION_CHANNELS = "linked_channels"

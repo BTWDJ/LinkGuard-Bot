@@ -52,7 +52,7 @@ def register_handlers(bot):
         welcome_text += "**How it works:**\n"
         welcome_text += "1️⃣ Add me as an admin to both your public and private channels\n"
         welcome_text += "2️⃣ Use /add to link your channels\n"
-        welcome_text += "3️⃣ I'll refresh the invite link every 12 hours\n\n"
+        welcome_text += "3️⃣ I'll refresh the invite link every 6 hours\n\n"
         welcome_text += "Use /help to learn more about my commands."
         
         # Create keyboard with help button
@@ -61,6 +61,9 @@ def register_handlers(bot):
                 [
                     InlineKeyboardButton("📚 Help", callback_data="help"),
                     InlineKeyboardButton("➕ Add Channels", callback_data="add")
+                ],
+                [
+                    InlineKeyboardButton("Tutorial", url="https://t.me/HowtouseLinkguardbot/2")
                 ]
             ]
         )
@@ -87,7 +90,7 @@ def register_handlers(bot):
         help_text += "1. Add the bot as admin to both channels\n"
         help_text += "2. Create a message in your public channel where the invite link will be placed\n"
         help_text += "3. Use /add and follow the instructions\n"
-        help_text += "4. The bot will automatically update the invite link every 12 hours\n\n"
+        help_text += "4. The bot will automatically update the invite link every 6 hours\n\n"
         
         help_text += "If you have any questions or issues, feel free to contact the developer."
         
@@ -95,7 +98,8 @@ def register_handlers(bot):
         keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("➕ Add Channels", callback_data="add")
+                    InlineKeyboardButton("➕ Add Channels", callback_data="add"),
+                    InlineKeyboardButton("Tutorial", url="https://t.me/HowtouseLinkguardbot/2")
                 ]
             ]
         )
@@ -173,7 +177,7 @@ async def start_command(client: Client, message: Message):
     welcome_text += "**How it works:**\n"
     welcome_text += "1️⃣ Add me as an admin to both your public and private channels\n"
     welcome_text += "2️⃣ Use /add to link your channels\n"
-    welcome_text += "3️⃣ I'll refresh the invite link every 12 hours\n\n"
+    welcome_text += "3️⃣ I'll refresh the invite link every 6 hours\n\n"
     welcome_text += "Use /help to learn more about my commands."
     
     # Create keyboard with help button
@@ -182,6 +186,9 @@ async def start_command(client: Client, message: Message):
             [
                 InlineKeyboardButton("📚 Help", callback_data="help"),
                 InlineKeyboardButton("➕ Add Channels", callback_data="add")
+            ],
+            [
+                InlineKeyboardButton("Tutorial", url="https://t.me/HowtouseLinkguardbot/2")
             ]
         ]
     )
@@ -208,7 +215,7 @@ async def help_command(client: Client, message: Message):
     help_text += "1. Add the bot as admin to both channels\n"
     help_text += "2. Create a message in your public channel where the invite link will be placed\n"
     help_text += "3. Use /add and follow the instructions\n"
-    help_text += "4. The bot will automatically update the invite link every 12 hours\n\n"
+    help_text += "4. The bot will automatically update the invite link every 6 hours\n\n"
     
     help_text += "If you have any questions or issues, feel free to contact the developer."
     
@@ -216,7 +223,8 @@ async def help_command(client: Client, message: Message):
     keyboard = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton("➕ Add Channels", callback_data="add")
+                InlineKeyboardButton("➕ Add Channels", callback_data="add"),
+                InlineKeyboardButton("Tutorial", url="https://t.me/HowtouseLinkguardbot/2")
             ]
         ]
     )
@@ -471,6 +479,11 @@ async def handle_main_channel_input(client: Client, message: Message, user_id, d
         f"✅ Public channel set: **{channel_name}**\n\n"
         f"2️⃣ Now, send me your private channel username or ID.\n\n"
         f"This is the channel whose invite link will be refreshed.\n\n"
+        f"**For private channels without username:**\n"
+        f"1. Add @missrose_bot as an admin to your private channel\n"
+        f"2. Forward any message from the private channel to @missrose_bot\n"
+        f"3. Reply to that forwarded message with /id\n"
+        f"4. Copy the ID (starts with -100) and send it to me\n\n"
         f"Make sure I'm an admin in this channel with 'Invite Users' permission.\n\n"
         f"Send /cancel to abort."
     )
@@ -498,12 +511,6 @@ async def handle_private_channel_input(client: Client, message: Message, user_id
     if not channel_id:
         await message.reply(
             "❌ I couldn't identify a channel from your message.\n\n"
-            "Please try one of these methods:\n"
-            "1. Forward a message from the channel\n"
-            "2. Send the channel username (e.g., @mychannel)\n"
-            "3. Send the channel ID (e.g., -1001234567890)\n"
-            "4. Send a message link (e.g., https://t.me/channelname/123)\n"
-            "5. Send an invite link to your private channel\n\n"
             "**For private channels without username:**\n"
             "1. Add @missrose_bot as an admin to your private channel\n"
             "2. Forward any message from the private channel to @missrose_bot\n"
@@ -654,7 +661,7 @@ async def handle_message_id_input(client: Client, message: Message, user_id, dat
     success_message += f"📢 **Public Channel:** {main_name}\n"
     success_message += f"🔒 **Private Channel:** {private_name}\n"
     success_message += f"📝 **Message ID:** {message_id}\n\n"
-    success_message += f"The invite link will be updated every 12 hours automatically.\n\n"
+    success_message += f"The invite link will be updated every 6 hours automatically.\n\n"
     success_message += f"Use /status to check the status of your linked channels."
     
     # Create keyboard with update now button

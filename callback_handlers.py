@@ -52,7 +52,7 @@ async def help_callback(client: Client, callback_query: CallbackQuery):
     help_text += "1. Add the bot as admin to both channels\n"
     help_text += "2. Create a message in your public channel where the invite link will be placed\n"
     help_text += "3. Use /add and follow the instructions\n"
-    help_text += "4. The bot will automatically update the invite link every 12 hours\n\n"
+    help_text += "4. The bot will automatically update the invite link every 6 hours\n\n"
     
     help_text += "If you have any questions or issues, feel free to contact the developer."
     
