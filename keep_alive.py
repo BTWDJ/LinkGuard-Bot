@@ -7,7 +7,7 @@ app = Flask('')
 
 @app.route('/')
 def home():
-    return "InviteLink Guard Bot is running!"
+    return "Link Guard Robot is running!"
 
 def run():
     logger.info("Starting web server for keep-alive")

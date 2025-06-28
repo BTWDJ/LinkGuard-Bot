@@ -39,7 +39,11 @@ async def setup_scheduler(bot):
 async def process_link_updates(bot):
     try:
         # Get channels that need to be updated
-        channels = await get_channels_for_update()
+        try:
+            channels = await get_channels_for_update()
+        except Exception as db_error:
+            logger.error(f"Database error when getting channels for update: {db_error}")
+            return
         
         if not channels:
             logger.debug("No channels need updating at this time")
@@ -50,6 +54,12 @@ async def process_link_updates(bot):
         # Process each channel
         for channel in channels:
             try:
+                # Validate channel data
+                required_fields = ["user_id", "main_channel_id", "private_channel_id", "message_id"]
+                if not all(field in channel for field in required_fields):
+                    logger.warning(f"Channel data missing required fields: {channel}")
+                    continue
+                
                 # Extract channel data
                 user_id = channel["user_id"]
                 main_channel_id = channel["main_channel_id"]
@@ -79,3 +89,4 @@ async def process_link_updates(bot):
     
     except Exception as e:
         logger.error(f"Error in process_link_updates: {e}")
+        # Continue running the bot even if there's an error in the update process

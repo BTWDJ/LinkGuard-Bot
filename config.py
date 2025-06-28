@@ -6,9 +6,6 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-# Bot configuration
-BOT_USERNAME = None  # Will be set during runtime
-
 # Link update configuration
 UPDATE_INTERVAL_HOURS = 12
 

@@ -1,4 +1,4 @@
-# InviteLink Guard Bot
+# Link Guard Robot
 
 A Telegram bot that automatically refreshes private channel invite links and updates them in a public channel message.
 

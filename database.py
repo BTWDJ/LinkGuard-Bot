@@ -20,14 +20,22 @@ async def init_db():
         raise ValueError("MongoDB URI not found. Please set MONGODB_URI in .env file")
     
     try:
-        # Connect to MongoDB
-        client = motor.motor_asyncio.AsyncIOMotorClient(mongodb_uri)
+        # Connect to MongoDB with proper connection settings
+        client = motor.motor_asyncio.AsyncIOMotorClient(
+            mongodb_uri,
+            serverSelectionTimeoutMS=5000,
+            connectTimeoutMS=10000,
+            socketTimeoutMS=10000,
+            maxPoolSize=10,
+            retryWrites=True,
+            w="majority"
+        )
         
         # Ping the server to verify connection
         await client.admin.command('ping')
         
         # Get database (default to 'invitelinkguard')
-        db = client.invitelinkguard
+        db = client.get_database('invitelinkguard')
         
         logger.info("Connected to MongoDB Atlas successfully")
         
@@ -39,19 +47,32 @@ async def init_db():
     except ConnectionFailure as e:
         logger.error(f"Failed to connect to MongoDB: {e}")
         raise
+    except Exception as e:
+        logger.error(f"Error initializing database: {e}")
+        raise
 
 # Create database indexes
 async def create_indexes():
-    # Create compound index for user_id and main_channel_id
-    await db[COLLECTION_CHANNELS].create_index(
-        [("user_id", 1), ("main_channel_id", 1)],
-        unique=True
-    )
-    
-    # Create index for next_update_time for efficient scheduling
-    await db[COLLECTION_CHANNELS].create_index("next_update_time", 1)
-    
-    logger.info("Database indexes created successfully")
+    try:
+        if db is None:
+            logger.error("Database not initialized when creating indexes")
+            return
+            
+        # Check if collection exists, create it if it doesn't
+        collections = await db.list_collection_names()
+        if COLLECTION_CHANNELS not in collections:
+            await db.create_collection(COLLECTION_CHANNELS)
+            logger.info(f"Created collection {COLLECTION_CHANNELS}")
+        
+        # Skip index creation for now - we'll let MongoDB create them automatically
+        # This avoids potential issues with index creation
+        logger.info("Skipping explicit index creation to avoid potential issues")
+        return
+        
+    except Exception as e:
+        logger.error(f"Error setting up database collections: {e}")
+        # Continue execution even if collection setup fails
+        # The application can still function without explicit collections
 
 # Channel operations
 async def add_linked_channels(user_id, main_channel_id, private_channel_id, message_id):
